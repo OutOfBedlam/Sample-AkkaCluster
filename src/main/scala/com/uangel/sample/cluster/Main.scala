@@ -15,5 +15,5 @@ object Main extends App with StrictLogging {
 
   val actorSystem = ActorSystem("SampleAkkaCluster", config)
 
-  actorSystem.actorOf(MainActor.props, "MainActor")
+  actorSystem.actorOf(MainActor.props, MainActor.name)
 }
