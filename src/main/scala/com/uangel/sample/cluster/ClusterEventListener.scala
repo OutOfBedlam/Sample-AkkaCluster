@@ -36,5 +36,5 @@ class ClusterEventListener extends Actor with StrictLogging {
 
 object ClusterEventListener {
   val props: Props = Props[ClusterEventListener]
-  val name: String = "clusterProxy"
+  val name: String = "clusterEventListener"
 }
