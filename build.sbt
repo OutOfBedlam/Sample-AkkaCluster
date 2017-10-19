@@ -18,3 +18,22 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Dependencies.akka,
     resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
   )
+  .settings(
+    packageName in Universal := s"SampleAkkaCluster-${(version in ThisBuild).value}",
+    executableScriptName := "sample",
+    scriptClasspath := Seq("${app_home}/../conf") ++ scriptClasspath.value,
+    bashScriptConfigLocation := Some("${app_home}/../conf/sample.ini"),
+    mappings in Universal ++= directory("bin"),
+    mappings in Universal ++= directory("conf"),
+    bashScriptExtraDefines ++= Seq(
+      """addJava "-DAPP_HOME=$(dirname $app_home)" """,
+      """addJava "-Dconfig.file=$(dirname $app_home)/conf/application.conf" """,
+      """addJava "-Dlogger.file=$(dirname $app_home)/conf/logback.xml" """,
+      """addJava "-Dpidfile.path=$(dirname $app_home)/bin/sample.pid" """,
+      """addJava "-Dcom.sun.management.jmxremote" """,
+      """addJava "-Dcom.sun.management.jmxremote.port=9091" """,
+      """addJava "-Dcom.sun.management.jmxremote.ssl=false" """,
+      """addJava "-Dcom.sun.management.jmxremote.authenticate=false" """,
+      """addJava "-Dcom.sun.management.jmxremote.local.only=false" """
+    )
+  )
