@@ -1,6 +1,7 @@
 package com.uangel.sample.cluster
 
 import akka.actor.{Actor, Props}
+import akka.cluster.client.ClusterClientReceptionist
 import com.typesafe.scalalogging.StrictLogging
 
 /**
@@ -8,7 +9,8 @@ import com.typesafe.scalalogging.StrictLogging
   */
 class MainActor extends Actor with StrictLogging {
 
-  context.actorOf(ClusterEventListener.props, ClusterEventListener.name)
+  private val clusterEventListenerActorRef = context.actorOf(ClusterEventListener.props, ClusterEventListener.name)
+  ClusterClientReceptionist(context.system).registerService(clusterEventListenerActorRef)
 
   override def receive: Receive = {
     case msg: String =>

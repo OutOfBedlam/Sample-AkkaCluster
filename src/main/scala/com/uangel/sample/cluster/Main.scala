@@ -1,6 +1,7 @@
 package com.uangel.sample.cluster
 
 import akka.actor.ActorSystem
+import akka.cluster.client.ClusterClientReceptionist
 import com.typesafe.config.ConfigFactory
 import com.typesafe.scalalogging.StrictLogging
 
@@ -15,5 +16,6 @@ object Main extends App with StrictLogging {
 
   val actorSystem = ActorSystem("SampleAkkaCluster", config)
 
-  actorSystem.actorOf(MainActor.props, MainActor.name)
+  val mainActorRef = actorSystem.actorOf(MainActor.props, MainActor.name)
+  ClusterClientReceptionist(actorSystem).registerService(mainActorRef)
 }
