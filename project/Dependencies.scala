@@ -6,6 +6,7 @@ object Dependencies {
   object Versions {
     val scala = "2.12.3"
     val akka = "2.5.6"
+    val akkaHttp = "10.0.10"
   }
 
   val akka: Seq[ModuleID] = Seq(
@@ -20,6 +21,11 @@ object Dependencies {
     //////////////////////////////////
     // Guice
     "com.typesafe.play" %% "play-guice" % PlayVersion.current,
+    //////////////////////////////////
+    // Http
+    "com.typesafe.akka" %% "akka-http-core" % Versions.akkaHttp,
+    "com.typesafe.akka" %% "akka-http" % Versions.akkaHttp,
+    "com.typesafe.akka" %% "akka-http-spray-json" % Versions.akkaHttp,
     //////////////////////////////////
     // Logging
     "com.typesafe.akka" %% "akka-slf4j" % Versions.akka,
